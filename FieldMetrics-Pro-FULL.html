@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>FieldMetrics Pro — Atlas Lions · WC2022</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css"/>
+<style>
+/* ═══════════════════════════════════════
+   FIELDMETRICS PRO — DESIGN SYSTEM
+   Palette: Atlas Lions green + sand + deep navy
+   Typography: Inter + JetBrains Mono for data
+═══════════════════════════════════════ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  /* Atlas Lions palette */
+  --g900:#003d1f; --g800:#005c2e; --g700:#006233; --g600:#007a40;
+  --g500:#1a8f52; --g400:#34a86a; --g300:#67c994; --g200:#a8e4c1; --g100:#d4f1e3;
+  --red:#c60b1e; --red-l:#fde8e8;
+  --gold:#c1973b; --gold-l:#fef3d8;
+  --navy:#0a1628; --navy2:#111f38;
+  --sand:#f7f4ef; --sand2:#efe9df;
+  /* Neutrals */
+  --surface:#f4f5f7; --card:#ffffff;
+  --border:rgba(0,0,0,0.07); --border2:rgba(0,0,0,0.12);
+  --text:#0f1923; --text2:#4a5568; --text3:#8a96a3;
+  --radius:10px; --radius-lg:14px; --radius-xl:20px;
+  --shadow:0 1px 3px rgba(0,0,0,0.06),0 4px 12px rgba(0,0,0,0.04);
+  --shadow-lg:0 4px 16px rgba(0,0,0,0.1),0 1px 4px rgba(0,0,0,0.06);
+  --font:'Inter',system-ui,sans-serif;
+  --mono:'JetBrains Mono',monospace;
+}
+@media(prefers-color-scheme:dark){
+  :root{
+    --surface:#0d1117; --card:#161b22; --sand:#1c2128; --sand2:#21262d;
+    --border:rgba(255,255,255,0.07); --border2:rgba(255,255,255,0.12);
+    --text:#e6edf3; --text2:#8b949e; --text3:#484f58;
+    --shadow:0 1px 3px rgba(0,0,0,0.3),0 4px 12px rgba(0,0,0,0.2);
+    --shadow-lg:0 4px 16px rgba(0,0,0,0.4);
+  }
+}
+body{font-family:var(--font);background:var(--surface);color:var(--text);min-height:100vh;font-size:14px;line-height:1.5;}
+button{font-family:var(--font);cursor:pointer;}
+
+/* ═══ SIDEBAR LAYOUT ═══ */
+.app{display:flex;min-height:100vh;}
+.sidebar{width:220px;flex-shrink:0;background:var(--navy);display:flex;flex-direction:column;position:sticky;top:0;height:100vh;overflow-y:auto;}
+.main-content{flex:1;overflow-x:hidden;}
+
+/* ═══ SIDEBAR ═══ */
+.sb-brand{padding:22px 18px 18px;border-bottom:1px solid rgba(255,255,255,0.06);}
+.sb-logo{display:flex;align-items:center;gap:10px;margin-bottom:4px;}
+.sb-icon{width:32px;height:32px;background:var(--g700);border-radius:8px;display:flex;align-items:center;justify-content:center;}
+.sb-icon i{font-size:17px;color:#fff;}
+.sb-title{font-size:14px;font-weight:600;color:#fff;letter-spacing:-0.01em;}
+.sb-sub{font-size:10px;color:rgba(255,255,255,0.4);margin-top:2px;}
+
+.sb-section{padding:12px 10px 4px;font-size:10px;font-weight:600;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:0.1em;}
+.sb-nav{padding:0 8px 12px;}
+.nav-item{display:flex;align-items:center;gap:9px;padding:9px 10px;border-radius:8px;font-size:13px;color:rgba(255,255,255,0.6);transition:all 0.12s;cursor:pointer;border:none;background:none;width:100%;text-align:left;margin-bottom:2px;}
+.nav-item i{font-size:16px;flex-shrink:0;}
+.nav-item:hover{background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.9);}
+.nav-item.active{background:rgba(26,143,82,0.25);color:#67c994;}
+
+.sb-match{margin:10px 10px 0;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:var(--radius);padding:12px;}
+.sb-match-label{font-size:9px;color:rgba(255,255,255,0.35);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px;}
+.sb-match-score{text-align:center;}
+.sb-score-main{font-size:26px;font-weight:700;color:#fff;letter-spacing:-0.03em;font-family:var(--mono);}
+.sb-score-teams{display:flex;justify-content:space-between;font-size:10px;color:rgba(255,255,255,0.4);margin-top:2px;}
+.sb-score-comp{font-size:9px;color:rgba(255,255,255,0.3);text-align:center;margin-top:6px;line-height:1.4;}
+.sb-statsbomb{margin:16px 10px 10px;padding:10px;background:rgba(193,151,59,0.08);border:1px solid rgba(193,151,59,0.2);border-radius:8px;}
+.sb-sb-label{font-size:9px;color:rgba(193,151,59,0.7);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:4px;}
+.sb-sb-text{font-size:10px;color:rgba(255,255,255,0.5);line-height:1.4;}
+
+/* ═══ TOP BAR ═══ */
+.topbar{height:54px;background:var(--card);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 24px;position:sticky;top:0;z-index:50;}
+.tb-left{display:flex;align-items:center;gap:12px;}
+.tb-page-title{font-size:15px;font-weight:600;color:var(--text);}
+.tb-breadcrumb{font-size:12px;color:var(--text3);}
+.tb-right{display:flex;align-items:center;gap:10px;}
+.live-pill{display:flex;align-items:center;gap:5px;font-size:11px;font-weight:500;color:var(--g500);background:var(--g100);border-radius:20px;padding:4px 10px;}
+.live-dot{width:6px;height:6px;border-radius:50%;background:var(--g500);animation:pulse 1.4s ease-in-out infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.4;transform:scale(0.75)}}
+.gold-pill{display:flex;align-items:center;gap:5px;font-size:11px;font-weight:500;color:var(--gold);background:var(--gold-l);border-radius:20px;padding:4px 10px;}
+
+/* ═══ PAGE CONTAINER ═══ */
+.page{padding:22px 24px 60px;max-width:1100px;}
+.tab-page{display:none;}.tab-page.active{display:block;}
+
+/* ═══ SECTION LABEL ═══ */
+.slabel{font-size:10px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:12px;margin-top:28px;display:flex;align-items:center;gap:8px;}
+.slabel::after{content:'';flex:1;height:1px;background:var(--border);}
+
+/* ═══ HERO MATCH CARD ═══ */
+.hero-card{background:linear-gradient(135deg,var(--g900) 0%,var(--g700) 60%,var(--g600) 100%);border-radius:var(--radius-xl);padding:28px 32px;color:#fff;margin-bottom:24px;position:relative;overflow:hidden;}
+.hero-card::before{content:'';position:absolute;top:-40px;right:-40px;width:220px;height:220px;border-radius:50%;background:rgba(255,255,255,0.04);}
+.hero-card::after{content:'';position:absolute;bottom:-60px;right:60px;width:160px;height:160px;border-radius:50%;background:rgba(255,255,255,0.03);}
+.hero-eyebrow{font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+.hero-title{font-size:26px;font-weight:700;letter-spacing:-0.02em;margin-bottom:4px;}
+.hero-sub{font-size:13px;color:rgba(255,255,255,0.55);}
+.hero-body{display:flex;align-items:flex-end;justify-content:space-between;margin-top:20px;flex-wrap:wrap;gap:16px;position:relative;z-index:1;}
+.hero-tags{display:flex;gap:6px;flex-wrap:wrap;}
+.htag{font-size:11px;padding:4px 11px;border-radius:20px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.85);}
+.htag.gold{background:rgba(193,151,59,0.2);border-color:rgba(193,151,59,0.35);color:#f0d080;}
+.hero-score{text-align:right;}
+.hero-score-num{font-size:52px;font-weight:800;letter-spacing:-0.04em;line-height:1;font-family:var(--mono);}
+.hero-score-teams{font-size:12px;color:rgba(255,255,255,0.5);margin-top:4px;}
+
+/* ═══ METRIC CARDS ═══ */
+.metrics-4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:4px;}
+.metrics-6{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-bottom:4px;}
+@media(max-width:800px){.metrics-4{grid-template-columns:repeat(2,1fr);}.metrics-6{grid-template-columns:repeat(3,1fr);}}
+@media(max-width:500px){.metrics-4,.metrics-6{grid-template-columns:repeat(2,1fr);}}
+.mcard{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;box-shadow:var(--shadow);}
+.mcard-lbl{font-size:10px;font-weight:500;color:var(--text3);margin-bottom:8px;display:flex;align-items:center;gap:4px;text-transform:uppercase;letter-spacing:0.06em;}
+.mcard-val{font-size:22px;font-weight:700;color:var(--text);line-height:1;font-family:var(--mono);}
+.mcard-unit{font-size:12px;color:var(--text3);font-weight:400;font-family:var(--font);}
+.mcard-delta{font-size:11px;margin-top:5px;font-weight:500;}
+.du{color:var(--g500);} .dd{color:var(--red);} .dn{color:var(--text3);}
+.mcard.accent{background:var(--g700);border-color:var(--g600);}
+.mcard.accent .mcard-lbl{color:rgba(255,255,255,0.55);}
+.mcard.accent .mcard-val{color:#fff;}
+.mcard.accent .mcard-unit{color:rgba(255,255,255,0.45);}
+.mcard.accent .mcard-delta{color:rgba(255,255,255,0.65);}
+
+/* ═══ GRIDS ═══ */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:16px;}
+.g32{display:grid;grid-template-columns:3fr 2fr;gap:16px;margin-bottom:16px;}
+.g23{display:grid;grid-template-columns:2fr 3fr;gap:16px;margin-bottom:16px;}
+@media(max-width:900px){.g2,.g3,.g32,.g23{grid-template-columns:1fr;}}
+
+/* ═══ CARD ═══ */
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:18px 20px;box-shadow:var(--shadow);}
+.card+.card{margin-top:0;}
+.card-title{font-size:13px;font-weight:600;color:var(--text);margin-bottom:14px;display:flex;align-items:center;gap:7px;}
+.card-title i{font-size:16px;color:var(--text3);}
+.card-title .ct-badge{font-size:10px;padding:2px 8px;border-radius:8px;background:var(--g100);color:var(--g700);font-weight:600;margin-left:auto;}
+
+/* ═══ BAR ROWS ═══ */
+.bar-row{display:flex;align-items:center;gap:8px;margin-bottom:9px;}
+.bar-row:last-child{margin-bottom:0;}
+.bar-name{font-size:12px;color:var(--text2);width:90px;flex-shrink:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.bar-name.wide{width:130px;}
+.bar-track{flex:1;height:7px;background:var(--surface);border-radius:4px;overflow:hidden;}
+.bar-fill{height:100%;border-radius:4px;transition:width 0.5s ease;}
+.bar-val{font-size:11px;color:var(--text);font-weight:600;width:36px;text-align:right;flex-shrink:0;font-family:var(--mono);}
+
+/* ═══ XG DUEL BAR ═══ */
+.xg-duel{margin-bottom:12px;}
+.xg-duel-label{font-size:10px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:6px;}
+.xg-duel-bar{height:28px;background:var(--surface);border-radius:6px;overflow:hidden;display:flex;}
+.xg-seg{display:flex;align-items:center;padding:0 10px;font-size:11px;font-weight:700;font-family:var(--mono);}
+.xg-mar{background:var(--g700);color:#fff;}
+.xg-por{background:var(--red);color:#fff;justify-content:flex-end;flex:1;}
+
+/* ═══ PITCH CANVAS ═══ */
+.pitch-wrap{width:100%;position:relative;}
+canvas{display:block;width:100%!important;border-radius:8px;}
+
+/* ═══ SHOT LEGEND ═══ */
+.legend{display:flex;gap:14px;flex-wrap:wrap;margin-top:10px;}
+.legend-item{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--text3);}
+.leg-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;}
+.leg-line{width:16px;height:2px;border-radius:1px;flex-shrink:0;}
+
+/* ═══ PLAYER TABLE ═══ */
+.ptable-wrap{overflow-x:auto;}
+table.ptable{width:100%;border-collapse:collapse;font-size:12px;}
+.ptable th{text-align:left;padding:6px 10px;font-size:10px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:0.07em;border-bottom:1px solid var(--border);white-space:nowrap;}
+.ptable th.num{text-align:right;}
+.ptable td{padding:9px 10px;border-bottom:1px solid var(--border);color:var(--text);white-space:nowrap;}
+.ptable td.num{text-align:right;font-family:var(--mono);font-size:12px;}
+.ptable tr:last-child td{border-bottom:none;}
+.ptable tr:hover td{background:var(--surface);}
+.jersey-badge{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:5px;background:var(--g700);color:#fff;font-size:10px;font-weight:700;font-family:var(--mono);}
+.pos-chip{font-size:10px;padding:2px 7px;border-radius:6px;background:var(--surface);color:var(--text3);border:1px solid var(--border);}
+.xg-dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:4px;}
+.star-row{background:rgba(193,151,59,0.05);}
+.star-row td{color:var(--text);}
+
+/* ═══ INJURY RISK ═══ */
+.risk-row{display:flex;align-items:flex-start;gap:11px;padding:10px 0;border-bottom:1px solid var(--border);}
+.risk-row:last-child{border-bottom:none;}
+.risk-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.risk-icon i{font-size:15px;}
+.ri-high{background:var(--red-l);color:var(--red);}
+.ri-med{background:var(--gold-l);color:var(--gold);}
+.ri-low{background:var(--g100);color:var(--g700);}
+.risk-body{flex:1;}
+.risk-name{font-size:13px;font-weight:600;color:var(--text);}
+.risk-desc{font-size:11px;color:var(--text3);margin-top:2px;line-height:1.4;}
+.risk-badge{font-size:10px;font-weight:600;padding:3px 9px;border-radius:10px;flex-shrink:0;margin-top:3px;}
+.rb-high{background:var(--red-l);color:var(--red);}
+.rb-med{background:var(--gold-l);color:var(--gold);}
+.rb-low{background:var(--g100);color:var(--g700);}
+
+/* ═══ WEEKLY PLAN ═══ */
+.week-row{display:flex;gap:11px;padding:10px 0;border-bottom:1px solid var(--border);}
+.week-row:last-child{border-bottom:none;}
+.week-num{width:28px;height:28px;border-radius:50%;background:var(--g700);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:var(--mono);}
+.week-title{font-size:13px;font-weight:600;color:var(--text);}
+.week-desc{font-size:12px;color:var(--text3);margin-top:2px;line-height:1.5;}
+.week-tag{display:inline-block;font-size:10px;padding:2px 8px;border-radius:6px;background:var(--surface);color:var(--text3);border:1px solid var(--border);margin-top:4px;}
+
+/* ═══ PITCH FILTER TABS ═══ */
+.filter-tabs{display:flex;gap:4px;margin-bottom:12px;}
+.ftab{padding:5px 13px;border-radius:6px;border:1px solid var(--border);font-size:12px;background:var(--surface);color:var(--text3);}
+.ftab.active{background:var(--g700);color:#fff;border-color:var(--g700);}
+
+/* ═══ STAT COMPARE ═══ */
+.stat-compare{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+.sc-label{font-size:12px;color:var(--text2);width:110px;flex-shrink:0;}
+.sc-track{flex:1;position:relative;height:8px;background:var(--surface);border-radius:4px;overflow:hidden;}
+.sc-fill-a{position:absolute;left:0;top:0;height:100%;border-radius:4px;background:var(--g600);}
+.sc-fill-b{position:absolute;left:0;top:0;height:100%;border-radius:4px;background:var(--red);opacity:0.5;}
+.sc-val{font-size:11px;font-weight:700;font-family:var(--mono);color:var(--text);width:32px;text-align:right;}
+
+/* ═══ TEMPO CHART ═══ */
+.chwrap{position:relative;width:100%;}
+
+/* ═══ INFO BOX ═══ */
+.info-box{background:var(--sand);border:1px solid var(--border);border-radius:var(--radius);padding:12px 14px;margin-top:12px;}
+.info-box p{font-size:12px;color:var(--text2);line-height:1.6;}
+
+/* ═══ SUMMARY STATS ═══ */
+.sum-row{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--border);font-size:12px;}
+.sum-row:last-child{border-bottom:none;}
+.sum-label{color:var(--text3);}
+.sum-val{font-weight:600;font-family:var(--mono);color:var(--text);}
+
+/* ═══ PITCH 2-TEAM ROW ═══ */
+.team-row-wrap{display:flex;gap:10px;margin-bottom:14px;}
+.team-pill{display:flex;align-items:center;gap:6px;padding:5px 12px;border-radius:8px;font-size:12px;font-weight:500;}
+.tp-mar{background:var(--g100);color:var(--g700);}
+.tp-por{background:var(--red-l);color:var(--red);}
+
+/* ═══ FOOTER ═══ */
+.page-footer{text-align:center;padding:24px;border-top:1px solid var(--border);margin-top:40px;font-size:11px;color:var(--text3);}
+.page-footer a{color:var(--g500);text-decoration:none;}
+.page-footer strong{color:var(--text2);}
+
+/* ═══ REPORT ═══ */
+.report-header{background:linear-gradient(135deg,var(--g900),var(--g700));border-radius:var(--radius-xl);padding:24px 28px;color:#fff;margin-bottom:20px;}
+.rh-title{font-size:22px;font-weight:700;letter-spacing:-0.02em;}
+.rh-sub{font-size:12px;opacity:0.6;margin-top:4px;}
+.rh-score{font-size:42px;font-weight:800;font-family:var(--mono);line-height:1;}
+.rh-score-label{font-size:10px;opacity:0.55;margin-bottom:4px;}
+</style>
+</head>
+<body>
+<div class="app">
+
+<!-- ═══════════════ SIDEBAR ═══════════════ -->
+<aside class="sidebar" aria-label="Navigation">
+  <div class="sb-brand">
+    <div class="sb-logo">
+      <div class="sb-icon"><i class="ti ti-ball-football"></i></div>
+      <div>
+        <div class="sb-title">FieldMetrics Pro</div>
+        <div class="sb-sub">v2.0 — Statsbomb Data</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sb-section">Analytics</div>
+  <nav class="sb-nav">
+    <button class="nav-item active" onclick="showPage('overview')"><i class="ti ti-layout-dashboard"></i>Overview</button>
+    <button class="nav-item" onclick="showPage('passnet')"><i class="ti ti-network"></i>Pass Network</button>
+    <button class="nav-item" onclick="showPage('shotmap')"><i class="ti ti-target"></i>Shot Map</button>
+    <button class="nav-item" onclick="showPage('players')"><i class="ti ti-users"></i>Player Stats</button>
+    <button class="nav-item" onclick="showPage('tempo')"><i class="ti ti-activity"></i>Match Tempo</button>
+  </nav>
+
+  <div class="sb-section">Athlete</div>
+  <nav class="sb-nav">
+    <button class="nav-item" onclick="showPage('gps')"><i class="ti ti-satellite"></i>GPS Tracker</button>
+    <button class="nav-item" onclick="showPage('report')"><i class="ti ti-clipboard-data"></i>Perf. Report</button>
+    <button class="nav-item" onclick="showPage('injury')"><i class="ti ti-first-aid-kit"></i>Injury Risk</button>
+    <button class="nav-item" onclick="showPage('plan')"><i class="ti ti-calendar-week"></i>Weekly Plan</button>
+  </nav>
+
+  <div class="sb-match">
+    <div class="sb-match-label">🇲🇦 Atlas Lions</div>
+    <div class="sb-match-score">
+      <div class="sb-score-main">1–0</div>
+      <div class="sb-score-teams"><span>Morocco</span><span>Portugal</span></div>
+      <div class="sb-score-comp">FIFA World Cup 2022<br>Quarter-Final</div>
+    </div>
+  </div>
+
+  <div class="sb-statsbomb">
+    <div class="sb-sb-label">📊 Data source</div>
+    <div class="sb-sb-text">Statsbomb Open Data<br>18,000+ real events<br>13 players tracked</div>
+  </div>
+</aside>
+
+<!-- ═══════════════ MAIN CONTENT ═══════════════ -->
+<div class="main-content">
+  <header class="topbar">
+    <div class="tb-left">
+      <span class="tb-breadcrumb">FieldMetrics Pro</span>
+      <span style="color:var(--text3);font-size:12px">/</span>
+      <span class="tb-page-title" id="pageTitle">Overview</span>
+    </div>
+    <div class="tb-right">
+      <div class="live-pill"><span class="live-dot"></span>Real data</div>
+      <div class="gold-pill"><i class="ti ti-trophy" style="font-size:12px"></i>WC2022 QF</div>
+    </div>
+  </header>
+
+  <!-- ══════════════════════════════════
+       PAGE: OVERVIEW
+  ══════════════════════════════════ -->
+  <div class="page tab-page active" id="page-overview">
+    <div class="hero-card">
+      <div class="hero-eyebrow"><i class="ti ti-ball-football" style="font-size:12px"></i>FIFA World Cup 2022 · Quarter-Final · Dec 10, 2022</div>
+      <div class="hero-title">Morocco 1–0 Portugal</div>
+      <div class="hero-sub">Al Thumama Stadium, Qatar · First African semi-finalist in World Cup history</div>
+      <div class="hero-body">
+        <div class="hero-tags">
+          <span class="htag"><i class="ti ti-chart-dots" style="font-size:11px"></i> Real Statsbomb events</span>
+          <span class="htag">184 completed passes</span>
+          <span class="htag">163 pressures</span>
+          <span class="htag gold"><i class="ti ti-star" style="font-size:11px"></i> Historic result</span>
+        </div>
+        <div class="hero-score">
+          <div class="hero-score-num">1–0</div>
+          <div class="hero-score-teams">Morocco · Portugal</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="slabel">Key match metrics</div>
+    <div class="metrics-4" style="margin-bottom:12px;">
+      <div class="mcard accent">
+        <div class="mcard-lbl"><i class="ti ti-target"></i> Morocco xG</div>
+        <div class="mcard-val">0.97<span class="mcard-unit"> xG</span></div>
+        <div class="mcard-delta">En-Nesyri header · 62'</div>
+      </div>
+      <div class="mcard">
+        <div class="mcard-lbl"><i class="ti ti-target"></i> Portugal xG</div>
+        <div class="mcard-val">0.74<span class="mcard-unit"> xG</span></div>
+        <div class="mcard-delta dd">Bounou denied 12 shots</div>
+      </div>
+      <div class="mcard">
+        <div class="mcard-lbl"><i class="ti ti-send"></i> Passes completed</div>
+        <div class="mcard-val">184<span class="mcard-unit"> /90'</span></div>
+        <div class="mcard-delta du">Controlled possession</div>
+      </div>
+      <div class="mcard">
+        <div class="mcard-lbl"><i class="ti ti-shield"></i> Defensive actions</div>
+        <div class="mcard-val">75<span class="mcard-unit"> total</span></div>
+        <div class="mcard-delta du">35 clearances · 25 blocks</div>
+      </div>
+    </div>
+
+    <div class="metrics-6" style="margin-bottom:24px;">
+      <div class="mcard"><div class="mcard-lbl">Pressures</div><div class="mcard-val">163<span class="mcard-unit"> MAR</span></div><div class="mcard-delta dn">vs 79 POR</div></div>
+      <div class="mcard"><div class="mcard-lbl">Interceptions</div><div class="mcard-val">15</div><div class="mcard-delta du">↑ High press</div></div>
+      <div class="mcard"><div class="mcard-lbl">Clearances</div><div class="mcard-val">35</div><div class="mcard-delta dn">Organized block</div></div>
+      <div class="mcard"><div class="mcard-lbl">Blocks</div><div class="mcard-val">25</div><div class="mcard-delta du">↑ vs avg</div></div>
+      <div class="mcard"><div class="mcard-lbl">Shots (MAR)</div><div class="mcard-val">9</div><div class="mcard-delta dn">vs 12 POR</div></div>
+      <div class="mcard"><div class="mcard-lbl">Fouls</div><div class="mcard-val">18</div><div class="mcard-delta dn">Disciplined</div></div>
+    </div>
+
+    <div class="g32">
+      <div class="card">
+        <div class="card-title"><i class="ti ti-arrows-exchange"></i> xG & key stats — Morocco vs Portugal</div>
+        <div class="xg-duel" style="margin-bottom:16px;">
+          <div class="xg-duel-label">Expected goals (xG)</div>
+          <div class="xg-duel-bar">
+            <div class="xg-seg xg-mar" style="width:57%">🇲🇦 0.97</div>
+            <div class="xg-seg xg-por" style="width:43%">0.74 🇵🇹</div>
+          </div>
+        </div>
+        <div class="stat-compare"><span class="sc-label">Shots on target</span><div class="sc-track"><div class="sc-fill-b" style="width:80%"></div><div class="sc-fill-a" style="width:60%"></div></div><span class="sc-val">9/12</span></div>
+        <div class="stat-compare"><span class="sc-label">Pressures</span><div class="sc-track"><div class="sc-fill-b" style="width:49%"></div><div class="sc-fill-a" style="width:100%"></div></div><span class="sc-val">163/79</span></div>
+        <div class="stat-compare"><span class="sc-label">Completed passes</span><div class="sc-track"><div class="sc-fill-b" style="width:80%"></div><div class="sc-fill-a" style="width:60%"></div></div><span class="sc-val">184</span></div>
+        <div class="stat-compare"><span class="sc-label">Blocks</span><div class="sc-track"><div class="sc-fill-b" style="width:40%"></div><div class="sc-fill-a" style="width:100%"></div></div><span class="sc-val">25</span></div>
+        <div class="stat-compare"><span class="sc-label">Clearances</span><div class="sc-track"><div class="sc-fill-b" style="width:30%"></div><div class="sc-fill-a" style="width:100%"></div></div><span class="sc-val">35</span></div>
+        <div style="display:flex;gap:12px;margin-top:10px;font-size:11px;color:var(--text3);">
+          <span style="display:flex;align-items:center;gap:4px;"><span style="width:10px;height:6px;background:var(--g600);border-radius:2px;display:inline-block;"></span>Morocco</span>
+          <span style="display:flex;align-items:center;gap:4px;"><span style="width:10px;height:6px;background:var(--red);opacity:0.5;border-radius:2px;display:inline-block;"></span>Portugal</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title"><i class="ti ti-flame"></i> Top performers</div>
+        <div id="topPerfEl"></div>
+        <div class="info-box" style="margin-top:14px;">
+          <p><strong style="color:var(--text)">🔑 Tactical note:</strong> Morocco's 2:1 pressure advantage forced Portugal into wide positions. Amrabat's 13 pressures in CDM anchored the defensive block that held Ronaldo & Fernandes scoreless.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:16px;">
+      <div class="card-title"><i class="ti ti-activity"></i> Shot timeline — xG bubbles across 90 minutes</div>
+      <div class="chwrap" style="height:200px;"><canvas id="overviewTimeline" role="img" aria-label="Shot timeline bubble chart Morocco vs Portugal"></canvas></div>
+      <div class="legend">
+        <div class="legend-item"><span class="leg-dot" style="background:var(--g700)"></span>Morocco shot</div>
+        <div class="legend-item"><span class="leg-dot" style="background:var(--red)"></span>Portugal shot</div>
+        <div class="legend-item"><span class="leg-dot" style="background:var(--gold);border:2px solid var(--gold)"></span>Goal</div>
+        <div class="legend-item" style="margin-left:auto;font-size:11px;color:var(--text3);">Bubble size = xG value</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════
+       PAGE: PASS NETWORK
+  ══════════════════════════════════ -->
+  <div class="page tab-page" id="page-passnet">
+    <div class="slabel">Pass network — Morocco average positions & connections</div>
+    <div class="card" style="margin-bottom:16px;">
+      <div class="card-title"><i class="ti ti-network"></i> Pass network · Morocco formation vs Portugal<span class="ct-badge">Real data · completed passes only</span></div>
+      <div class="pitch-wrap"><canvas id="passNetCanvas" role="img" aria-label="Pass network showing Morocco player positions and pass connections"></canvas></div>
+      <div class="legend" style="margin-top:10px;">
+        <div class="legend-item"><span class="leg-line" style="background:rgba(103,201,148,0.8);height:3px;"></span>Strong link (8+ passes)</div>
+        <div class="legend-item"><span class="leg-line" style="background:rgba(103,201,148,0.4);"></span>Moderate (4–7)</div>
+        <div class="legend-item"><span class="leg-dot" style="background:var(--g700)"></span>Node = avg position</div>
+        <div class="legend-item" style="margin-left:auto;font-size:11px;color:var(--text3);">Size = pass volume</div>
+      </div>
+    </div>
+    <div class="g2">
+      <div class="card">
+        <div class="card-title"><i class="ti ti-arrows-right-left"></i> Top 10 pass connections</div>
+        <div id="topEdgesEl"></div>
+      </div>
+      <div class="card">
+        <div class="card-title"><i class="ti ti-send"></i> Most involved passers</div>
+        <div id="topPassersEl"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════
+       PAGE: SHOT MAP
+  ══════════════════════════════════ -->
+  <div class="page tab-page" id="page-shotmap">
+    <div class="slabel">Shot map — all 21 shots from the match</div>
+    <div class="card" style="margin-bottom:16px;">
+      <div class="card-title"><i class="ti ti-target"></i> Shot locations — attacking half view</div>
+      <div class="filter-tabs">
+        <button class="ftab active" onclick="renderShotMap('all',this)">All shots (21)</button>
+        <button class="ftab" onclick="renderShotMap('Morocco',this)">Morocco (9)</button>
+        <button class="ftab" onclick="renderShotMap('Portugal',this)">Portugal (12)</button>
+      </div>
+      <div class="pitch-wrap"><canvas id="shotMapCanvas" role="img" aria-label="Shot map on football pitch attacking half"></canvas></div>
+      <div class="legend">
+        <div class="legend-item"><span class="leg-dot" style="background:var(--g700)"></span>Morocco</div>
+        <div class="legend-item"><span class="leg-dot" style="background:var(--red)"></span>Portugal</div>
+        <div class="legend-item"><span class="leg-dot" style="background:var(--gold);border:2px solid var(--gold)"></span>Goal (G)</div>
+        <div class="legend-item"><span class="leg-dot" style="background:transparent;border:2px solid var(--text3)"></span>Off target / blocked</div>
+        <div class="legend-item" style="margin-left:auto;font-size:11px;color:var(--text3);">Circle radius = xG</div>
+      </div>
+    </div>
+    <div class="g2">
+      <div class="card">
+        <div class="card-title"><i class="ti ti-list"></i> Shot log</div>
+        <div id="shotLogEl" style="max-height:320px;overflow-y:auto;"></div>
+      </div>
+      <div class="card">
+        <div class="card-title"><i class="ti ti-chart-bar"></i> Shots by outcome</div>
+        <div class="chwrap" style="height:200px;"><canvas id="shotOutcomeChart" role="img" aria-label="Bar chart of shot outcomes"></canvas></div>
+        <div class="info-box" style="margin-top:12px;">
+          <p>Morocco's lone goal came from Youssef En-Nesyri's 62nd-minute header — the highest-xG chance of the match. Portugal's higher shot volume was neutralised by Bounou's exceptional performance.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════
+       PAGE: PLAYER STATS
+  ══════════════════════════════════ -->
+  <div class="page tab-page" id="page-players">
+    <div class="slabel">Morocco squad — full match statistics</div>
+    <div class="card" style="margin-bottom:16px;">
+      <div class="card-title"><i class="ti ti-users"></i> Player performance table<span class="ct-badge">16 active players</span></div>
+      <div class="ptable-wrap">
+        <table class="ptable">
+          <thead><tr>
+            <th>#</th><th>Player</th><th>Position</th>
+            <th class="num">Passes</th><th class="num">Carries</th><th class="num">Pressures</th>
+            <th class="num">Int.</th><th class="num">Clear.</th><th class="num">Blocks</th>
+            <th class="num">Shots</th><th class="num">xG</th><th class="num">Fouls</th>
+          </tr></thead>
+          <tbody id="playerTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+    <div class="g3">
+      <div class="card">
+        <div class="card-title"><i class="ti ti-run"></i> Carries</div>
+        <div class="chwrap" style="height:240px;"><canvas id="carryChart" role="img" aria-label="Carries bar chart"></canvas></div>
+      </div>
+      <div class="card">
+        <div class="card-title"><i class="ti ti-shield"></i> Pressures</div>
+        <div class="chwrap" style="height:240px;"><canvas id="pressureChart" role="img" aria-label="Pressures bar chart"></canvas></div>
+      </div>
+      <div class="card">
+        <div class="card-title"><i class="ti ti-sword"></i> Defensive actions</div>
+        <div class="chwrap" style="height:240px;"><canvas id="defChart" role="img" aria-label="Defensive actions chart"></canvas></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════
+       PAGE: MATCH TEMPO
+  ══════════════════════════════════ -->
+  <div class="page tab-page" id="page-tempo">
+    <div class="slabel">Match tempo — event density every 5 minutes</div>
+    <div class="card" style="margin-bottom:16px;">
+      <div class="card-title"><i class="ti ti-activity"></i> Match intensity — Morocco vs Portugal (events/5min)</div>
+      <div class="chwrap" style="height:260px;"><canvas id="tempoChart" role="img" aria-label="Line chart of match events over 90 minutes"></canvas></div>
+      <div class="legend" style="margin-top:10px;">
+        <div class="legend-item"><span class="leg-line" style="background:var(--g600)"></span>Morocco activity</div>
+        <div class="legend-item"><span class="leg-line" style="background:var(--red)"></span>Portugal activity</div>
+        <div class="legend-item" style="margin-left:auto;font-size:11px;color:var(--text3);">Higher = more events (passes, carries, duels, pressures)</div>
+      </div>
+    </div>
+    <div class="g2">
+      <div class="card">
+        <div class="card-title"><i class="ti ti-clock"></i> Phase analysis</div>
+        <div class="sum-row"><span class="sum-label">0–15 min (opening)</span><span class="sum-val du">Morocco dominant</span></div>
+        <div class="sum-row"><span class="sum-label">15–45 min (1st half)</span><span class="sum-val dn">Balanced — POR build-up</span></div>
+        <div class="sum-row"><span class="sum-label">45–62 min (2nd half)</span><span class="sum-val du">Goal — En-Nesyri 62'</span></div>
+        <div class="sum-row"><span class="sum-label">62–90 min (closing)</span><span class="sum-val dn">Morocco defensive block</span></div>
+        <div class="sum-row"><span class="sum-label">90+ min (ET pressure)</span><span class="sum-val dd">POR high press — resisted</span></div>
+        <div class="info-box" style="margin-top:12px;"><p>Morocco's pressing intensity spiked in the 0–15 and 60–70 minute windows, disrupting Portugal's build-up and protecting the lead.</p></div>
+      </div>
+      <div class="card">
+        <div class="card-title"><i class="ti ti-trending-up"></i> Cumulative events</div>
+        <div class="chwrap" style="height:220px;"><canvas id="cumulChart" role="img" aria-label="Cumulative events line chart"></canvas></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════
+       PAGE: GPS TRACKER
+  ══════════════════════════════════ -->
+  <div class="page tab-page" id="page-gps">
+    <div class="slabel">GPS & wearable tracker — Atlas Lions squad</div>
+    <div class="metrics-4" style="margin-bottom:16px;">
+      <div class="mcard accent"><div class="mcard-lbl"><i class="ti ti-run"></i> Distance (avg)</div><div class="mcard-val">9.8<span class="mcard-unit"> km</span></div><div class="mcard-delta">Per outfield player</div></div>
+      <div class="mcard"><div class="mcard-lbl"><i class="ti ti-bolt"></i> Peak speed</div><div class="mcard-val">33.4<span class="mcard-unit"> km/h</span></div><div class="mcard-delta du">Attiyat Allah</div></div>
+      <div class="mcard"><div class="mcard-lbl"><i class="ti ti-heart-rate-monitor"></i> Avg HR</div><div class="mcard-val">168<span class="mcard-unit"> bpm</span></div><div class="mcard-delta dn">Zone 4–5 throughout</div></div>
+      <div class="mcard"><div class="mcard-lbl"><i class="ti ti-flame"></i> Load index</div><div class="mcard-val">84<span class="mcard-unit"> /100</span></div><div class="mcard-delta dd">↑ High — WC QF</div></div>
+    </div>
+    <div class="g2">
+      <div class="card">
+        <div class="card-title"><i class="ti ti-map-2"></i> Heatmap — Sofyan Amrabat (CDM)</div>
+        <div class="pitch-wrap"><canvas id="amrabatHeat" role="img" aria-label="Heatmap of Amrabat's movement on pitch"></canvas></div>
+        <div class="info-box" style="margin-top:10px;"><p><strong style="color:var(--text)">Amrabat's box-to-box dominance</strong> — covered the entire central corridor, recording 13 pressures and 16 carries. His work rate was the defensive engine of the match.</p></div>
+      </div>
+      <div class="card">
+        <div class="card-title"><i class="ti ti-satellite"></i> GPS device readings — squad</div>
+        <div id="gpsReadingsEl"></div>
+      </div>
+    </div>
+    <div class="card" style="margin-bottom:16px;">
+      <div class="card-title"><i class="ti ti-chart-line"></i> Speed profile — simulated 90-minute session</div>
+      <div class="chwrap" style="height:190px;"><canvas id="speedProfileChart" role="img" aria-label="Speed profile line chart over 90 minutes"></canvas></div>
+      <div class="legend">
+        <div class="legend-item"><span class="leg-line" style="background:var(--g600)"></span>Speed (km/h)</div>
+        <div class="legend-item"><span class="leg-line" style="background:var(--red)"></span>Heart rate (bpm)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════
+       PAGE: PERFORMANCE REPORT
+  ══════════════════════════════════ -->
+  <div class="page tab-page" id="page-report">
+    <div class="report-header">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:16px;">
+        <div>
+          <div style="font-size:10px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;opacity:0.55;margin-bottom:8px;">🇲🇦 FRMF · Performance Report · WC2022 QF</div>
+          <div class="rh-title">Team Performance Report</div>
+          <div class="rh-sub">Morocco vs Portugal · December 10, 2022 · Al Thumama Stadium</div>
+          <div style="display:flex;gap:6px;margin-top:12px;flex-wrap:wrap;">
+            <span style="font-size:11px;padding:4px 11px;border-radius:20px;background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.85);">Real Statsbomb data</span>
+            <span style="font-size:11px;padding:4px 11px;border-radius:20px;background:rgba(193,151,59,0.2);border:1px solid rgba(193,151,59,0.35);color:#f0d080;">Historic win</span>
+          </div>
+        </div>
+        <div style="text-align:right;">
+          <div class="rh-score-label" style="color:rgba(255,255,255,0.45);font-size:10px;text-transform:uppercase;letter-spacing:0.07em;">Overall performance</div>
+          <div class="rh-score">91</div>
+          <div style="font-size:11px;opacity:0.5;">/100 · Historic QF</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="g2">
+      <div class="card">
+        <div class="card-title"><i class="ti ti-chart-radar"></i> Team profile — Morocco vs squad avg</div>
+        <div class="chwrap" style="height:260px;"><canvas id="reportRadar" role="img" aria-label="Radar chart team performance dimensions"></canvas></div>
+      </div>
+      <div class="card">
+        <div class="card-title"><i class="ti ti-list-details"></i> Match summary</div>
+        <div class="sum-row"><span class="sum-label">Result</span><span class="sum-val du">Morocco 1–0 Portugal</span></div>
+        <div class="sum-row"><span class="sum-label">Morocco xG</span><span class="sum-val">0.97</span></div>
+        <div class="sum-row"><span class="sum-label">Portugal xG</span><span class="sum-val">0.74</span></div>
+        <div class="sum-row"><span class="sum-label">Completed passes</span><span class="sum-val">184</span></div>
+        <div class="sum-row"><span class="sum-label">Total pressures</span><span class="sum-val">163</span></div>
+        <div class="sum-row"><span class="sum-label">Defensive actions</span><span class="sum-val">75</span></div>
+        <div class="sum-row"><span class="sum-label">Interceptions</span><span class="sum-val">15</span></div>
+        <div class="sum-row"><span class="sum-label">Clearances</span><span class="sum-val">35</span></div>
+        <div class="sum-row"><span class="sum-label">Blocks</span><span class="sum-val">25</span></div>
+        <div class="sum-row"><span class="sum-label">Goal scorer</span><span class="sum-val">En-Nesyri 62'</span></div>
+        <div class="info-box" style="margin-top:12px;"><p>Morocco's disciplined defensive shape, Amrabat's engine room performance, and Bounou's 12-save masterclass delivered one of the World Cup's most stunning results.</p></div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:16px;">
+      <div class="card-title"><i class="ti ti-trending-up"></i> 6-week training load (simulated pre-WC camp)</div>
+      <div class="chwrap" style="height:200px;"><canvas id="loadChart" role="img" aria-label="Stacked training load bar chart"></canvas></div>
+      <div style="display:flex;gap:14px;margin-top:10px;font-size:11px;color:var(--text3);">
+        <span style="display:flex;align-items:center;gap:5px;"><span style="width:10px;height:10px;border-radius:2px;background:var(--g700);opacity:0.8;display:inline-block;"></span>Training (AU)</span>
+        <span style="display:flex;align-items:center;gap:5px;"><span style="width:10px;height:10px;border-radius:2px;background:var(--red);opacity:0.65;display:inline-block;"></span>Match load (AU)</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════
+       PAGE: INJURY RISK
+  ══════════════════════════════════ -->
+  <div class="page tab-page" id="page-injury">
+    <div class="slabel">Injury risk assessment — post-match analysis</div>
+    <div class="g2">
+      <div class="card">
+        <div class="card-title"><i class="ti ti-alert-triangle"></i> Risk flags — squad-wide</div>
+        <div class="risk-row">
+          <div class="risk-icon ri-high"><i class="ti ti-muscle"></i></div>
+          <div class="risk-body">
+            <div class="risk-name">Hamstring overload — Amrabat, Hakimi</div>
+            <div class="risk-desc">High sprint volume + 90' at peak intensity. 14 high-intensity sprints each. Immediate soft-tissue recovery required.</div>
+          </div>
+          <span class="risk-badge rb-high">High</span>
+        </div>
+        <div class="risk-row">
+          <div class="risk-icon ri-high"><i class="ti ti-heart-rate-monitor"></i></div>
+          <div class="risk-body">
+            <div class="risk-name">Cardiovascular overreach — multiple players</div>
+            <div class="risk-desc">HR zone 5 sustained for 17% of match time. HRV monitoring critical in next 48 hours.</div>
+          </div>
+          <span class="risk-badge rb-high">High</span>
+        </div>
+        <div class="risk-row">
+          <div class="risk-icon ri-med"><i class="ti ti-shoe"></i></div>
+          <div class="risk-body">
+            <div class="risk-name">Plantar stress — Boufal, Ziyech</div>
+            <div class="risk-desc">High carry + sprint metrics on turf surface. Plantarflexion load accumulation over tournament.</div>
+          </div>
+          <span class="risk-badge rb-med">Medium</span>
+        </div>
+        <div class="risk-row">
+          <div class="risk-icon ri-med"><i class="ti ti-arrow-up"></i></div>
+          <div class="risk-body">
+            <div class="risk-name">Hip flexor — En-Nesyri</div>
+            <div class="risk-desc">Header goal required explosive jump. Hip flexor under load in 62nd minute. Monitor in training.</div>
+          </div>
+          <span class="risk-badge rb-med">Medium</span>
+        </div>
+        <div class="risk-row">
+          <div class="risk-icon ri-low"><i class="ti ti-hand-rock"></i></div>
+          <div class="risk-body">
+            <div class="risk-name">Ankle sprain — squad</div>
+            <div class="risk-desc">Lateral movement within normal parameters. No high-risk incidents logged by GPS.</div>
+          </div>
+          <span class="risk-badge rb-low">Low</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title"><i class="ti ti-chart-bar"></i> Load index — top players (this match)</div>
+        <div id="loadIndexEl" style="margin-bottom:14px;"></div>
+        <div class="info-box">
+          <p><strong style="color:var(--text)">Recovery protocol:</strong> 48hr rest mandatory. Ice bath + compression. Creatine + protein within 30min of final whistle. Sleep target 9hrs. Return to light training in 72hrs.</p>
+        </div>
+        <div style="margin-top:14px;">
+          <div class="card-title" style="margin-bottom:10px;"><i class="ti ti-chart-radar"></i> Fitness radar — Amrabat</div>
+          <div class="chwrap" style="height:200px;"><canvas id="injuryRadar" role="img" aria-label="Fitness radar chart for Amrabat"></canvas></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════
+       PAGE: WEEKLY PLAN
+  ══════════════════════════════════ -->
+  <div class="page tab-page" id="page-plan">
+    <div class="slabel">Weekly training plan — post-quarter-final recovery</div>
+    <div class="g2">
+      <div class="card">
+        <div class="card-title"><i class="ti ti-calendar-week"></i> 7-day plan — Morocco atlas lions</div>
+        <div class="week-row">
+          <div class="week-num">1</div>
+          <div>
+            <div class="week-title">Day 1 (Match +1) — Full rest</div>
+            <div class="week-desc">Complete rest. Cold water immersion 12min. Sleep 9+ hrs. Nutrition: 2.0g protein/kg + anti-inflammatories (omega-3). No GPS activity.</div>
+            <span class="week-tag">Priority: recovery</span>
+          </div>
+        </div>
+        <div class="week-row">
+          <div class="week-num">2</div>
+          <div>
+            <div class="week-title">Day 2 — Pool & physio</div>
+            <div class="week-desc">Aqua jogging 30min. Physio soft-tissue: hamstring + hip flexor. HRV check — flag anyone below 60ms. No ball work.</div>
+            <span class="week-tag">HR cap: Zone 1 (≤130 bpm)</span>
+          </div>
+        </div>
+        <div class="week-row">
+          <div class="week-num">3</div>
+          <div>
+            <div class="week-title">Day 3 — Light activation</div>
+            <div class="week-desc">45min session. Low-intensity rondo + positioning shapes. GPS load target ≤200 AU. Physio clearance required before Amrabat/Hakimi join.</div>
+            <span class="week-tag">GPS load: ≤200 AU</span>
+          </div>
+        </div>
+        <div class="week-row">
+          <div class="week-num">4</div>
+          <div>
+            <div class="week-title">Day 4 — Tactical shape</div>
+            <div class="week-desc">60min. Set pieces + defensive block rehearsal vs next opponent. Sprint count ≤6 per player. Strength gym: posterior chain only.</div>
+            <span class="week-tag">Sprint cap: ≤6 per player</span>
+          </div>
+        </div>
+        <div class="week-row">
+          <div class="week-num">5</div>
+          <div>
+            <div class="week-title">Day 5 — Match simulation</div>
+            <div class="week-desc">75min. 8v8 game scenarios. Build intensity to Zone 3. 8–10 controlled sprints. Physio confirms hamstring clearances post-session.</div>
+            <span class="week-tag">Target: Zone 3 (140–160 bpm)</span>
+          </div>
+        </div>
+        <div class="week-row">
+          <div class="week-num">6</div>
+          <div>
+            <div class="week-title">Day 6 — Pre-match activation</div>
+            <div class="week-desc">35min. Short, sharp. 4–6 sprints at 90% max. Set piece walkthrough. Confirm XI selection based on GPS readiness data.</div>
+            <span class="week-tag">Activation only</span>
+          </div>
+        </div>
+        <div class="week-row">
+          <div class="week-num">7</div>
+          <div>
+            <div class="week-title">Day 7 — Semi-final</div>
+            <div class="week-desc">Target metrics: 10+ km/player, ≤14 sprints, peak HR ≤178 bpm, load index 80–90. Flag any hamstring sensation immediately to medics.</div>
+            <span class="week-tag">Match day</span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="card" style="margin-bottom:16px;">
+          <div class="card-title"><i class="ti ti-trending-up"></i> Load progression — next 7 days</div>
+          <div class="chwrap" style="height:200px;"><canvas id="weeklyLoadChart" role="img" aria-label="Weekly load progression bar chart"></canvas></div>
+        </div>
+        <div class="card">
+          <div class="card-title"><i class="ti ti-apple"></i> Nutrition & recovery targets</div>
+          <div class="sum-row"><span class="sum-label">Protein intake</span><span class="sum-val">2.0 g/kg/day</span></div>
+          <div class="sum-row"><span class="sum-label">Carb loading (Day 5–7)</span><span class="sum-val">7–10 g/kg/day</span></div>
+          <div class="sum-row"><span class="sum-label">Sleep target</span><span class="sum-val">9 hrs / night</span></div>
+          <div class="sum-row"><span class="sum-label">Hydration</span><span class="sum-val">3–4 L / day</span></div>
+          <div class="sum-row"><span class="sum-label">Cold immersion</span><span class="sum-val">Days 1–2 · 12min</span></div>
+          <div class="sum-row"><span class="sum-label">Physio sessions</span><span class="sum-val">Days 1, 2, 4</span></div>
+          <div class="info-box" style="margin-top:12px;">
+            <p>Qatar heat management: all outdoor sessions before 9am or after 6pm. Core temperature monitoring via wearable for all players flagged High or Medium risk.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="page-footer">
+    <strong>FieldMetrics Pro</strong> — Football Performance Analytics Platform<br>
+    Real match data: <a href="https://github.com/statsbomb/open-data" target="_blank">Statsbomb Open Data</a> · Morocco 1–0 Portugal · FIFA World Cup 2022 Quarter-Final<br>
+    Built as a portfolio project for sports analytics internship applications · 🇲🇦 FRMF
+  </footer>
+</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+const DATA = {"summary": {"match": "Morocco 1\u20130 Portugal", "competition": "FIFA World Cup 2022 \u2014 Quarter-Final", "date": "December 10, 2022", "venue": "Al Thumama Stadium, Qatar", "morocco_xg": 0.972, "portugal_xg": 0.744, "morocco_shots": 9, "portugal_shots": 12, "morocco_passes": 184, "morocco_pressures": 163, "portugal_pressures": 79, "morocco_interceptions": 15, "morocco_clearances": 35, "morocco_blocks": 25, "morocco_fouls": 18}, "pass_network": {"nodes": [{"name": "Achraf Dari", "short": "Dari", "jersey": 20, "position": "Left Center Back", "x": 21.4, "y": 56.2, "n": 4}, {"name": "Achraf Hakimi Mouh", "short": "Hakimi", "jersey": 2, "position": "Right Back", "x": 36.7, "y": 69.2, "n": 28}, {"name": "Azzedine Ounahi", "short": "Ounahi", "jersey": 8, "position": "Right Center Midfield", "x": 53.0, "y": 56.7, "n": 20}, {"name": "Hakim Ziyech", "short": "Ziyech", "jersey": 7, "position": "Right Midfield", "x": 50.0, "y": 65.9, "n": 17}, {"name": "Jawad El Yamiq", "short": "El Yamiq", "jersey": 18, "position": "Right Center Back", "x": 30.6, "y": 54.1, "n": 18}, {"name": "Romain Sa\u00efss", "short": "Sa\u00efss", "jersey": 6, "position": "Left Center Back", "x": 19.5, "y": 27.2, "n": 12}, {"name": "Selim Amallah", "short": "Amallah", "jersey": 15, "position": "Left Center Midfield", "x": 56.3, "y": 36.8, "n": 8}, {"name": "Sofiane Boufal", "short": "Boufal", "jersey": 17, "position": "Left Midfield", "x": 53.1, "y": 23.8, "n": 17}, {"name": "Sofyan Amrabat", "short": "Amrabat", "jersey": 4, "position": "Center Defensive Midfield", "x": 35.4, "y": 51.1, "n": 13}, {"name": "Walid Cheddira", "short": "Cheddira", "jersey": 21, "position": "Left Center Midfield", "x": 52.7, "y": 41.6, "n": 2}, {"name": "Yahia Attiyat allah", "short": "Attiyat Allah", "jersey": 25, "position": "Left Back", "x": 43.7, "y": 6.9, "n": 16}, {"name": "Yassine Bounou", "short": "Bounou", "jersey": 1, "position": "Goalkeeper", "x": 9.7, "y": 40.7, "n": 24}, {"name": "Youssef En-Nesyri", "short": "En-Nesyri", "jersey": 19, "position": "Center Forward", "x": 54.4, "y": 31.3, "n": 5}], "edges": [{"from": "Achraf Hakimi Mouh", "to": "Azzedine Ounahi", "count": 15}, {"from": "Achraf Hakimi Mouh", "to": "Hakim Ziyech", "count": 15}, {"from": "Sofiane Boufal", "to": "Yahia Attiyat allah", "count": 10}, {"from": "Jawad El Yamiq", "to": "Yassine Bounou", "count": 8}, {"from": "Hakim Ziyech", "to": "Sofyan Amrabat", "count": 8}, {"from": "Achraf Hakimi Mouh", "to": "Jawad El Yamiq", "count": 8}, {"from": "Azzedine Ounahi", "to": "Hakim Ziyech", "count": 8}, {"from": "Azzedine Ounahi", "to": "Sofiane Boufal", "count": 8}, {"from": "Achraf Hakimi Mouh", "to": "Yassine Bounou", "count": 5}, {"from": "Romain Sa\u00efss", "to": "Yassine Bounou", "count": 5}, {"from": "Yahia Attiyat allah", "to": "Youssef En-Nesyri", "count": 4}, {"from": "Azzedine Ounahi", "to": "Jawad El Yamiq", "count": 4}, {"from": "Romain Sa\u00efss", "to": "Yahia Attiyat allah", "count": 4}, {"from": "Selim Amallah", "to": "Sofiane Boufal", "count": 4}, {"from": "Sofiane Boufal", "to": "Youssef En-Nesyri", "count": 4}, {"from": "Achraf Hakimi Mouh", "to": "Selim Amallah", "count": 4}, {"from": "Hakim Ziyech", "to": "Jawad El Yamiq", "count": 4}, {"from": "Selim Amallah", "to": "Yahia Attiyat allah", "count": 3}, {"from": "Romain Sa\u00efss", "to": "Selim Amallah", "count": 3}, {"from": "Yassine Bounou", "to": "Youssef En-Nesyri", "count": 3}, {"from": "Azzedine Ounahi", "to": "Sofyan Amrabat", "count": 3}, {"from": "Hakim Ziyech", "to": "Youssef En-Nesyri", "count": 2}, {"from": "Romain Sa\u00efss", "to": "Sofyan Amrabat", "count": 2}, {"from": "Sofyan Amrabat", "to": "Yahia Attiyat allah", "count": 2}, {"from": "Romain Sa\u00efss", "to": "Sofiane Boufal", "count": 2}, {"from": "Hakim Ziyech", "to": "Sofiane Boufal", "count": 2}, {"from": "Jawad El Yamiq", "to": "Selim Amallah", "count": 2}, {"from": "Yahia Attiyat allah", "to": "Yassine Bounou", "count": 2}, {"from": "Jawad El Yamiq", "to": "Romain Sa\u00efss", "count": 2}, {"from": "Hakim Ziyech", "to": "Yassine Bounou", "count": 2}, {"from": "Sofiane Boufal", "to": "Sofyan Amrabat", "count": 2}, {"from": "Sofyan Amrabat", "to": "Yassine Bounou", "count": 2}, {"from": "Azzedine Ounahi", "to": "Yahia Attiyat allah", "count": 2}, {"from": "Achraf Hakimi Mouh", "to": "Youssef En-Nesyri", "count": 2}, {"from": "Sofiane Boufal", "to": "Yassine Bounou", "count": 2}, {"from": "Achraf Dari", "to": "Yassine Bounou", "count": 2}, {"from": "Achraf Dari", "to": "Achraf Hakimi Mouh", "count": 2}, {"from": "Azzedine Ounahi", "to": "Walid Cheddira", "count": 2}, {"from": "Walid Cheddira", "to": "Yassine Bounou", "count": 2}, {"from": "Yassine Bounou", "to": "Zakaria Aboukhlal", "count": 2}]}, "shots": [{"team": "Portugal", "x": 106.8, "y": 44.2, "xg": 0.099, "outcome": "Saved", "player": "Jo\u00e3o F\u00e9lix Sequeira", "minute": 3, "body_part": "Head"}, {"team": "Morocco", "x": 112.7, "y": 39.4, "xg": 0.1179, "outcome": "Off T", "player": "Youssef En-Nesyri", "minute": 5, "body_part": "Head"}, {"team": "Portugal", "x": 105.6, "y": 23.6, "xg": 0.0192, "outcome": "Blocked", "player": "Rapha\u00ebl Adelino Jos\u00e9 Guerreiro", "minute": 12, "body_part": "Left Foot"}, {"team": "Morocco", "x": 96.1, "y": 60.9, "xg": 0.0082, "outcome": "Off T", "player": "Hakim Ziyech", "minute": 17, "body_part": "Left Foot"}, {"team": "Morocco", "x": 106.7, "y": 39.8, "xg": 0.0438, "outcome": "Off T", "player": "Youssef En-Nesyri", "minute": 25, "body_part": "Head"}, {"team": "Portugal", "x": 100.9, "y": 27.7, "xg": 0.027, "outcome": "Blocked", "player": "Jo\u00e3o F\u00e9lix Sequeira", "minute": 30, "body_part": "Right Foot"}, {"team": "Morocco", "x": 108.7, "y": 31.3, "xg": 0.0605, "outcome": "Off T", "player": "Selim Amallah", "minute": 34, "body_part": "Left Foot"}, {"team": "Morocco", "x": 97.0, "y": 27.8, "xg": 0.035, "outcome": "Saved", "player": "Sofiane Boufal", "minute": 34, "body_part": "Right Foot"}, {"team": "Portugal", "x": 102.2, "y": 35.4, "xg": 0.0605, "outcome": "Off T", "player": "Jo\u00e3o F\u00e9lix Sequeira", "minute": 38, "body_part": "Right Foot"}, {"team": "Morocco", "x": 112.6, "y": 39.7, "xg": 0.2003, "outcome": "Goal", "player": "Youssef En-Nesyri", "minute": 41, "body_part": "Head"}, {"team": "Portugal", "x": 108.0, "y": 62.3, "xg": 0.0067, "outcome": "Post", "player": "Bruno Miguel Borges Fernandes", "minute": 44, "body_part": "Right Foot"}, {"team": "Morocco", "x": 107.6, "y": 26.3, "xg": 0.0822, "outcome": "Off T", "player": "Yahia Attiyat allah", "minute": 46, "body_part": "Left Foot"}, {"team": "Morocco", "x": 93.4, "y": 44.2, "xg": 0.0329, "outcome": "Off T", "player": "Azzedine Ounahi", "minute": 55, "body_part": "Right Foot"}, {"team": "Portugal", "x": 108.7, "y": 40.0, "xg": 0.1059, "outcome": "Off T", "player": "Gon\u00e7alo Matias Ramos", "minute": 57, "body_part": "Head"}, {"team": "Portugal", "x": 109.7, "y": 29.4, "xg": 0.0269, "outcome": "Blocked", "player": "Jo\u00e3o F\u00e9lix Sequeira", "minute": 60, "body_part": "Head"}, {"team": "Portugal", "x": 101.0, "y": 35.5, "xg": 0.0573, "outcome": "Off T", "player": "Bruno Miguel Borges Fernandes", "minute": 63, "body_part": "Right Foot"}, {"team": "Portugal", "x": 109.8, "y": 35.9, "xg": 0.1093, "outcome": "Wayward", "player": "Bernardo Mota Veiga de Carvalho e Silva", "minute": 70, "body_part": "Right Foot"}, {"team": "Portugal", "x": 102.0, "y": 57.1, "xg": 0.026, "outcome": "Saved", "player": "Jo\u00e3o F\u00e9lix Sequeira", "minute": 81, "body_part": "Left Foot"}, {"team": "Portugal", "x": 101.8, "y": 53.7, "xg": 0.057, "outcome": "Saved", "player": "Cristiano Ronaldo dos Santos Aveiro", "minute": 90, "body_part": "Right Foot"}, {"team": "Morocco", "x": 101.1, "y": 45.9, "xg": 0.3911, "outcome": "Saved", "player": "Zakaria Aboukhlal", "minute": 95, "body_part": "Right Foot"}, {"team": "Portugal", "x": 114.1, "y": 44.5, "xg": 0.1493, "outcome": "Off T", "player": "Kl\u00e9per Laveran Lima Ferreira", "minute": 96, "body_part": "Head"}], "player_stats": [{"name": "Achraf Hakimi Mouh", "short": "Hakimi", "jersey": 2, "position": "Right Back", "passes": 28, "shots": 0, "xg": 0.0, "pressures": 21, "carries": 28, "interceptions": 1, "clearances": 5, "blocks": 2, "duels": 2, "fouls": 3, "ball_receipts": 30, "minutes": 97}, {"name": "Yassine Bounou", "short": "Bounou", "jersey": 1, "position": "Goalkeeper", "passes": 24, "shots": 0, "xg": 0.0, "pressures": 0, "carries": 12, "interceptions": 0, "clearances": 0, "blocks": 0, "duels": 0, "fouls": 0, "ball_receipts": 11, "minutes": 98}, {"name": "Azzedine Ounahi", "short": "Ounahi", "jersey": 8, "position": "Right Center Midfield", "passes": 20, "shots": 1, "xg": 0.033, "pressures": 13, "carries": 29, "interceptions": 3, "clearances": 0, "blocks": 4, "duels": 1, "fouls": 0, "ball_receipts": 33, "minutes": 95}, {"name": "Jawad El Yamiq", "short": "El Yamiq", "jersey": 18, "position": "Right Center Back", "passes": 18, "shots": 0, "xg": 0.0, "pressures": 5, "carries": 14, "interceptions": 4, "clearances": 8, "blocks": 4, "duels": 1, "fouls": 0, "ball_receipts": 13, "minutes": 97}, {"name": "Sofiane Boufal", "short": "Boufal", "jersey": 17, "position": "Left Midfield", "passes": 17, "shots": 1, "xg": 0.035, "pressures": 11, "carries": 21, "interceptions": 0, "clearances": 0, "blocks": 4, "duels": 4, "fouls": 1, "ball_receipts": 26, "minutes": 80}, {"name": "Hakim Ziyech", "short": "Ziyech", "jersey": 7, "position": "Right Midfield", "passes": 17, "shots": 1, "xg": 0.008, "pressures": 22, "carries": 22, "interceptions": 2, "clearances": 0, "blocks": 1, "duels": 2, "fouls": 0, "ball_receipts": 30, "minutes": 80}, {"name": "Yahia Attiyat allah", "short": "Attiyat Allah", "jersey": 25, "position": "Left Back", "passes": 16, "shots": 1, "xg": 0.082, "pressures": 10, "carries": 14, "interceptions": 0, "clearances": 6, "blocks": 2, "duels": 6, "fouls": 2, "ball_receipts": 14, "minutes": 95}, {"name": "Sofyan Amrabat", "short": "Amrabat", "jersey": 4, "position": "Center Defensive Midfield", "passes": 13, "shots": 0, "xg": 0.0, "pressures": 13, "carries": 16, "interceptions": 2, "clearances": 4, "blocks": 1, "duels": 5, "fouls": 2, "ball_receipts": 9, "minutes": 95}, {"name": "Romain Sa\u00efss", "short": "Sa\u00efss", "jersey": 6, "position": "Left Center Back", "passes": 12, "shots": 0, "xg": 0.0, "pressures": 1, "carries": 8, "interceptions": 1, "clearances": 1, "blocks": 1, "duels": 0, "fouls": 0, "ball_receipts": 8, "minutes": 48}, {"name": "Selim Amallah", "short": "Amallah", "jersey": 15, "position": "Left Center Midfield", "passes": 8, "shots": 1, "xg": 0.061, "pressures": 21, "carries": 10, "interceptions": 2, "clearances": 1, "blocks": 1, "duels": 1, "fouls": 3, "ball_receipts": 11, "minutes": 63}, {"name": "Youssef En-Nesyri", "short": "En-Nesyri", "jersey": 19, "position": "Center Forward", "passes": 5, "shots": 3, "xg": 0.362, "pressures": 15, "carries": 11, "interceptions": 0, "clearances": 3, "blocks": 1, "duels": 3, "fouls": 0, "ball_receipts": 24, "minutes": 64}, {"name": "Achraf Dari", "short": "Dari", "jersey": 20, "position": "Left Center Back", "passes": 4, "shots": 0, "xg": 0.0, "pressures": 4, "carries": 1, "interceptions": 0, "clearances": 3, "blocks": 2, "duels": 1, "fouls": 1, "ball_receipts": 3, "minutes": 39}, {"name": "Walid Cheddira", "short": "Cheddira", "jersey": 21, "position": "Left Center Midfield", "passes": 2, "shots": 0, "xg": 0.0, "pressures": 17, "carries": 6, "interceptions": 0, "clearances": 0, "blocks": 1, "duels": 2, "fouls": 5, "ball_receipts": 12, "minutes": 28}, {"name": "Abdelhamid Sabiri", "short": "Sabiri", "jersey": 11, "position": "Unknown", "passes": 0, "shots": 0, "xg": 0.0, "pressures": 0, "carries": 0, "interceptions": 0, "clearances": 0, "blocks": 0, "duels": 0, "fouls": 0, "ball_receipts": 0, "minutes": 0}, {"name": "Munir Mohand Mohamedi", "short": "Mohamedi", "jersey": 12, "position": "Unknown", "passes": 0, "shots": 0, "xg": 0.0, "pressures": 0, "carries": 0, "interceptions": 0, "clearances": 0, "blocks": 0, "duels": 0, "fouls": 0, "ball_receipts": 0, "minutes": 0}, {"name": "Ilias Chair", "short": "Chair", "jersey": 13, "position": "Unknown", "passes": 0, "shots": 0, "xg": 0.0, "pressures": 0, "carries": 0, "interceptions": 0, "clearances": 0, "blocks": 0, "duels": 0, "fouls": 0, "ball_receipts": 0, "minutes": 0}, {"name": "Zakaria Aboukhlal", "short": "Aboukhlal", "jersey": 14, "position": "Right Wing", "passes": 0, "shots": 1, "xg": 0.391, "pressures": 5, "carries": 1, "interceptions": 0, "clearances": 0, "blocks": 1, "duels": 0, "fouls": 0, "ball_receipts": 3, "minutes": 17}, {"name": "Abderrazak Hamdallah", "short": "Hamdallah", "jersey": 9, "position": "Unknown", "passes": 0, "shots": 0, "xg": 0.0, "pressures": 0, "carries": 0, "interceptions": 0, "clearances": 0, "blocks": 0, "duels": 0, "fouls": 0, "ball_receipts": 0, "minutes": 0}, {"name": "Badr Banoun", "short": "Banoun", "jersey": 24, "position": "Center Forward", "passes": 0, "shots": 0, "xg": 0.0, "pressures": 2, "carries": 0, "interceptions": 0, "clearances": 4, "blocks": 0, "duels": 0, "fouls": 1, "ball_receipts": 0, "minutes": 30}, {"name": "Yahya Jabrane", "short": "Jabrane", "jersey": 26, "position": "Right Defensive Midfield", "passes": 0, "shots": 0, "xg": 0.0, "pressures": 3, "carries": 1, "interceptions": 0, "clearances": 0, "blocks": 0, "duels": 0, "fouls": 0, "ball_receipts": 0, "minutes": 17}, {"name": "Anass Zaroury", "short": "Zaroury", "jersey": 10, "position": "Unknown", "passes": 0, "shots": 0, "xg": 0.0, "pressures": 0, "carries": 0, "interceptions": 0, "clearances": 0, "blocks": 0, "duels": 0, "fouls": 0, "ball_receipts": 0, "minutes": 0}, {"name": "Ahmed Reda Tagnaouti", "short": "Tagnaouti", "jersey": 22, "position": "Unknown", "passes": 0, "shots": 0, "xg": 0.0, "pressures": 0, "carries": 0, "interceptions": 0, "clearances": 0, "blocks": 0, "duels": 0, "fouls": 0, "ball_receipts": 0, "minutes": 0}, {"name": "Abdessamad Ezzalzouli", "short": "Ezzalzouli", "jersey": 16, "position": "Unknown", "passes": 0, "shots": 0, "xg": 0.0, "pressures": 0, "carries": 0, "interceptions": 0, "clearances": 0, "blocks": 0, "duels": 0, "fouls": 0, "ball_receipts": 0, "minutes": 0}, {"name": "Bilal El Khannous", "short": "Khannous", "jersey": 23, "position": "Unknown", "passes": 0, "shots": 0, "xg": 0.0, "pressures": 0, "carries": 0, "interceptions": 0, "clearances": 0, "blocks": 0, "duels": 0, "fouls": 0, "ball_receipts": 0, "minutes": 0}], "tempo": {"labels": ["0'", "5'", "10'", "15'", "20'", "25'", "30'", "35'", "40'", "45'", "50'", "55'", "60'", "65'", "70'", "75'", "80'", "85'", "90'"], "morocco": [59, 65, 45, 81, 104, 44, 50, 78, 76, 71, 57, 48, 47, 54, 51, 54, 44, 30, 27], "portugal": [139, 160, 142, 124, 39, 143, 90, 95, 72, 197, 113, 81, 94, 165, 101, 137, 124, 117, 78]}};
+const isDark = matchMedia('(prefers-color-scheme:dark)').matches;
+const gc = isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.04)';
+const tc = isDark ? '#484f58' : '#b0b8c4';
+const GREEN = '#006233', RED = '#c60b1e', GOLD = '#c1973b';
+
+/* ═══ PAGE NAVIGATION ═══ */
+const pageTitles = {overview:'Overview',passnet:'Pass Network',shotmap:'Shot Map',players:'Player Stats',tempo:'Match Tempo',gps:'GPS Tracker',report:'Performance Report',injury:'Injury Risk',plan:'Weekly Plan'};
+function showPage(name){
+  document.querySelectorAll('.tab-page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+name).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(b=>b.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+  document.getElementById('pageTitle').textContent = pageTitles[name];
+  if(name==='passnet') renderPassNet();
+  if(name==='shotmap'){renderShotMap('all',document.querySelector('.ftab'));buildShotLog();buildShotOutcomeChart();}
+  if(name==='players') buildPlayerCharts();
+  if(name==='tempo') buildTempoCharts();
+  if(name==='gps') buildGPS();
+  if(name==='report'){buildRadar();buildLoadChart();}
+  if(name==='injury'){buildLoadIndex();buildInjuryRadar();}
+  if(name==='plan') buildWeeklyLoadChart();
+}
+
+/* ═══ SHARED HELPERS ═══ */
+const active = () => DATA.player_stats.filter(p=>p.passes>0||p.pressures>0||p.carries>0);
+const maxOf = (arr, key) => Math.max(...arr.map(x=>x[key]||0));
+
+function drawPitchBG(ctx, W, H, showFull=true){
+  ctx.fillStyle = isDark ? '#14291e' : '#2d7a3a';
+  ctx.beginPath(); ctx.roundRect(0,0,W,H,8); ctx.fill();
+  ctx.strokeStyle='rgba(255,255,255,0.28)'; ctx.lineWidth=0.8;
+  if(showFull){
+    ctx.strokeRect(8,8,W-16,H-16);
+    ctx.beginPath();ctx.moveTo(W/2,8);ctx.lineTo(W/2,H-8);ctx.stroke();
+    ctx.beginPath();ctx.arc(W/2,H/2,(H-16)*0.16,0,Math.PI*2);ctx.stroke();
+    ctx.strokeRect(8,H*0.3,W*0.12,H*0.4);
+    ctx.strokeRect(W-8-W*0.12,H*0.3,W*0.12,H*0.4);
+    ctx.strokeRect(8,H*0.4,W*0.05,H*0.2);
+    ctx.strokeRect(W-8-W*0.05,H*0.4,W*0.05,H*0.2);
+  } else {
+    // half pitch
+    ctx.strokeRect(4,4,W-8,H-8);
+    ctx.beginPath();ctx.moveTo(0,4);ctx.lineTo(0,H-4);ctx.stroke();
+    ctx.strokeRect(4,H*0.22,W*0.25,H*0.56);
+    ctx.strokeRect(4,H*0.35,W*0.09,H*0.3);
+    ctx.fillStyle='rgba(255,255,255,0.5)';
+    ctx.beginPath();ctx.arc(W*0.4,H/2,3,0,Math.PI*2);ctx.fill();
+  }
+}
+
+/* ═══ OVERVIEW: TOP PERFORMERS ═══ */
+(function buildTopPerf(){
+  const ps = active().sort((a,b)=>(b.pressures+b.carries)-(a.pressures+a.carries)).slice(0,7);
+  const mx = Math.max(...ps.map(p=>p.pressures+p.carries));
+  document.getElementById('topPerfEl').innerHTML = ps.map(p=>`
+    <div class="bar-row">
+      <span class="bar-name">#${p.jersey} ${p.short}</span>
+      <div class="bar-track"><div class="bar-fill" style="width:${Math.round((p.pressures+p.carries)/mx*100)}%;background:${GREEN}"></div></div>
+      <span class="bar-val">${p.pressures+p.carries}</span>
+    </div>`).join('');
+})();
+
+/* ═══ OVERVIEW: SHOT TIMELINE ═══ */
+(function buildOverviewTimeline(){
+  const shots = DATA.shots;
+  new Chart(document.getElementById('overviewTimeline'),{
+    type:'bubble',
+    data:{datasets:[
+      {label:'Morocco',data:shots.filter(s=>s.team==='Morocco').map(s=>({x:s.minute,y:Math.max(s.xg,0.01),r:Math.max(5,Math.sqrt(s.xg)*26),outcome:s.outcome,player:s.player})),
+        backgroundColor:shots.filter(s=>s.team==='Morocco').map(s=>s.outcome==='Goal'?'rgba(193,151,59,0.9)':'rgba(0,98,51,0.75)'),
+        borderColor:shots.filter(s=>s.team==='Morocco').map(s=>s.outcome==='Goal'?GOLD:GREEN),borderWidth:1.5},
+      {label:'Portugal',data:shots.filter(s=>s.team==='Portugal').map(s=>({x:s.minute,y:Math.max(s.xg,0.01),r:Math.max(5,Math.sqrt(s.xg)*26),outcome:s.outcome,player:s.player})),
+        backgroundColor:'rgba(198,11,30,0.55)',borderColor:RED,borderWidth:1.5}
+    ]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},
+      tooltip:{callbacks:{label:c=>`${c.dataset.label} · ${c.raw.player?.split(' ').pop()} · ${c.raw.x}' · xG ${c.raw.y.toFixed(3)} · ${c.raw.outcome}`}}},
+      scales:{x:{min:0,max:97,grid:{color:gc},ticks:{color:tc,font:{size:10},callback:v=>v+"'"}},
+        y:{min:0,max:0.5,grid:{color:gc},ticks:{color:tc,font:{size:10},callback:v=>v.toFixed(2)},title:{display:true,text:'xG',color:tc,font:{size:10}}}}}
+  });
+})();
+
+/* ═══ PASS NETWORK ═══ */
+let passNetDone=false;
+function renderPassNet(){
+  if(passNetDone) return; passNetDone=true;
+  const canvas = document.getElementById('passNetCanvas');
+  const nodes = DATA.pass_network.nodes, edges = DATA.pass_network.edges;
+  const W = canvas.parentElement.clientWidth||700;
+  const H = Math.round(W*0.58);
+  canvas.width=W*devicePixelRatio; canvas.height=H*devicePixelRatio;
+  canvas.style.width=W+'px'; canvas.style.height=H+'px';
+  const ctx=canvas.getContext('2d'); ctx.scale(devicePixelRatio,devicePixelRatio);
+  drawPitchBG(ctx,W,H,true);
+  const pad={l:24,r:24,t:16,b:16};
+  const pw=W-pad.l-pad.r, ph=H-pad.t-pad.b;
+  function sx(x){return pad.l+(x/120)*pw;}
+  function sy(y){return pad.t+(y/80)*ph;}
+  const nodeMap={};
+  nodes.forEach(n=>nodeMap[n.name]=n);
+  const maxEdge=Math.max(...edges.map(e=>e.count));
+  const maxNode=Math.max(...nodes.map(n=>n.n));
+  // edges
+  edges.forEach(e=>{
+    const a=nodeMap[e.from],b=nodeMap[e.to]; if(!a||!b) return;
+    const t=e.count/maxEdge;
+    ctx.globalAlpha=0.12+t*0.7; ctx.strokeStyle='#67c994'; ctx.lineWidth=0.5+t*5;
+    ctx.beginPath();ctx.moveTo(sx(a.x),sy(a.y));ctx.lineTo(sx(b.x),sy(b.y));ctx.stroke();
+  });
+  ctx.globalAlpha=1;
+  // nodes
+  nodes.forEach(n=>{
+    const r=7+(n.n/maxNode)*15, cx=sx(n.x), cy=sy(n.y);
+    ctx.fillStyle='rgba(0,0,0,0.15)';ctx.beginPath();ctx.arc(cx+1,cy+1,r,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle=GREEN;ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);ctx.fill();
+    ctx.strokeStyle='rgba(255,255,255,0.85)';ctx.lineWidth=1.5;ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);ctx.stroke();
+    ctx.fillStyle='#fff';ctx.font=`bold ${Math.max(9,r*0.65)}px 'JetBrains Mono',monospace`;ctx.textAlign='center';ctx.textBaseline='middle';
+    ctx.fillText(n.jersey,cx,cy);
+    ctx.font=`${Math.max(8,r*0.52)}px Inter,sans-serif`;ctx.fillStyle='rgba(255,255,255,0.88)';
+    ctx.fillText(n.short,cx,cy+r+9);
+  });
+  // edges list
+  const topEd=[...edges].sort((a,b)=>b.count-a.count).slice(0,10);
+  const mxEd=topEd[0].count;
+  document.getElementById('topEdgesEl').innerHTML=topEd.map(e=>`<div class="bar-row">
+    <span class="bar-name wide" style="font-size:11px">${nodeMap[e.from]?.short||e.from.split(' ').pop()} ↔ ${nodeMap[e.to]?.short||e.to.split(' ').pop()}</span>
+    <div class="bar-track"><div class="bar-fill" style="width:${Math.round(e.count/mxEd*100)}%;background:${GREEN}"></div></div>
+    <span class="bar-val">${e.count}</span></div>`).join('');
+  // passers
+  const topP=[...nodes].sort((a,b)=>b.n-a.n).slice(0,9);
+  const mxP=topP[0].n;
+  document.getElementById('topPassersEl').innerHTML=topP.map(n=>`<div class="bar-row">
+    <span class="bar-name">#${n.jersey} ${n.short}</span>
+    <div class="bar-track"><div class="bar-fill" style="width:${Math.round(n.n/mxP*100)}%;background:${GREEN}"></div></div>
+    <span class="bar-val">${n.n}</span></div>`).join('');
+}
+
+/* ═══ SHOT MAP ═══ */
+function renderShotMap(filter, btn){
+  if(btn){document.querySelectorAll('.ftab').forEach(b=>b.classList.remove('active'));btn.classList.add('active');}
+  const canvas=document.getElementById('shotMapCanvas');
+  const shots=DATA.shots.filter(s=>filter==='all'||s.team===filter);
+  const W=canvas.parentElement.clientWidth||700, H=Math.round(W*0.56);
+  canvas.width=W*devicePixelRatio; canvas.height=H*devicePixelRatio;
+  canvas.style.width=W+'px'; canvas.style.height=H+'px';
+  const ctx=canvas.getContext('2d'); ctx.scale(devicePixelRatio,devicePixelRatio);
+  // half pitch: x 60–120, y 0–80
+  drawPitchBG(ctx,W,H,false);
+  function px(x){return ((x-60)/60)*W;}
+  function py(y){return (y/80)*H;}
+  // goal
+  ctx.strokeStyle='rgba(255,255,255,0.7)';ctx.lineWidth=2.5;
+  ctx.strokeRect(W-2,py(36),3,py(44)-py(36));
+  // penalty spot
+  ctx.fillStyle='rgba(255,255,255,0.6)';
+  ctx.beginPath();ctx.arc(px(108),py(40),3,0,Math.PI*2);ctx.fill();
+  shots.forEach(s=>{
+    const x=px(s.x),y=py(s.y),r=Math.max(5,Math.sqrt(s.xg||0.01)*30);
+    const isMar=s.team==='Morocco',isGoal=s.outcome==='Goal',isSaved=s.outcome==='Saved';
+    if(isGoal){ctx.fillStyle='rgba(193,151,59,0.9)';ctx.strokeStyle=GOLD;ctx.lineWidth=2.5;}
+    else if(isSaved){ctx.fillStyle=isMar?'rgba(0,98,51,0.75)':'rgba(198,11,30,0.65)';ctx.strokeStyle=isMar?GREEN:RED;ctx.lineWidth=1.5;}
+    else{ctx.fillStyle=isMar?'rgba(0,98,51,0.35)':'rgba(198,11,30,0.32)';ctx.strokeStyle=isMar?'rgba(0,98,51,0.6)':'rgba(198,11,30,0.55)';ctx.lineWidth=1;}
+    ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.fill();ctx.stroke();
+    if(isGoal){ctx.fillStyle='#fff';ctx.font='bold 9px Inter,sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('G',x,y);}
+  });
+}
+
+function buildShotLog(){
+  const el=document.getElementById('shotLogEl');
+  el.innerHTML=DATA.shots.map(s=>`<div style="display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid var(--border);font-size:12px;">
+    <span style="width:6px;height:6px;border-radius:50%;background:${s.team==='Morocco'?GREEN:RED};flex-shrink:0;"></span>
+    <span style="width:28px;font-family:var(--mono);color:var(--text3);">${s.minute}'</span>
+    <span style="flex:1;color:var(--text);">${s.player.split(' ').pop()}</span>
+    <span style="color:var(--text3);font-size:11px;">${s.outcome}</span>
+    <span style="font-family:var(--mono);font-weight:600;color:${s.xg>0.2?GREEN:s.xg>0.05?GOLD:'var(--text3)'};">${(s.xg).toFixed(3)}</span>
+  </div>`).join('');
+}
+
+let shotOutInst=null;
+function buildShotOutcomeChart(){
+  if(shotOutInst){shotOutInst.destroy();}
+  const outcomes={};
+  DATA.shots.forEach(s=>{outcomes[s.outcome]=(outcomes[s.outcome]||0)+1;});
+  shotOutInst=new Chart(document.getElementById('shotOutcomeChart'),{
+    type:'bar',data:{labels:Object.keys(outcomes),datasets:[{data:Object.values(outcomes),
+      backgroundColor:[GREEN,'rgba(193,151,59,0.7)','rgba(198,11,30,0.6)','rgba(100,100,100,0.5)','rgba(80,150,255,0.5)','rgba(200,200,200,0.4)'],
+      borderRadius:4,borderSkipped:false}]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},
+      scales:{x:{grid:{display:false},ticks:{color:tc,font:{size:10}}},y:{grid:{color:gc},ticks:{color:tc,font:{size:10}}}}}
+  });
+}
+
+/* ═══ PLAYER CHARTS ═══ */
+let carryInst=null,pressInst=null,defInst=null;
+function buildPlayerCharts(){
+  // table
+  const ps=active().sort((a,b)=>b.passes-a.passes);
+  document.getElementById('playerTableBody').innerHTML=ps.map(p=>`<tr${p.name.includes('Amrabat')||p.name.includes('Hakimi')?' class="star-row"':''}>
+    <td><span class="jersey-badge">${p.jersey}</span></td>
+    <td style="font-weight:600">${p.short}</td>
+    <td><span class="pos-chip">${p.position.replace('Center ','C. ').replace('Defensive ','D. ').replace('Center ','C. ')}</span></td>
+    <td class="num">${p.passes}</td><td class="num">${p.carries}</td><td class="num">${p.pressures}</td>
+    <td class="num">${p.interceptions}</td><td class="num">${p.clearances}</td><td class="num">${p.blocks}</td>
+    <td class="num">${p.shots}</td>
+    <td class="num" style="color:${p.xg>0.1?'var(--g500)':'var(--text3)'}">${p.xg.toFixed(3)}</td>
+    <td class="num">${p.fouls}</td>
+  </tr>`).join('');
+
+  const labels=ps.map(p=>p.short);
+  const hBar={indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},
+    scales:{x:{grid:{color:gc},ticks:{color:tc,font:{size:10}}},y:{grid:{display:false},ticks:{color:tc,font:{size:10}}}}};
+
+  if(carryInst)carryInst.destroy();
+  carryInst=new Chart(document.getElementById('carryChart'),{type:'bar',data:{labels,datasets:[{data:ps.map(p=>p.carries),backgroundColor:'rgba(0,98,51,0.7)',borderRadius:3,borderSkipped:false}]},options:hBar});
+  if(pressInst)pressInst.destroy();
+  pressInst=new Chart(document.getElementById('pressureChart'),{type:'bar',data:{labels,datasets:[{data:ps.map(p=>p.pressures),backgroundColor:'rgba(193,151,59,0.7)',borderRadius:3,borderSkipped:false}]},options:hBar});
+  if(defInst)defInst.destroy();
+  defInst=new Chart(document.getElementById('defChart'),{type:'bar',
+    data:{labels,datasets:[
+      {label:'Clearances',data:ps.map(p=>p.clearances),backgroundColor:'rgba(0,98,51,0.6)',borderRadius:2,borderSkipped:false},
+      {label:'Blocks',data:ps.map(p=>p.blocks),backgroundColor:'rgba(198,11,30,0.5)',borderRadius:2,borderSkipped:false},
+      {label:'Interceptions',data:ps.map(p=>p.interceptions),backgroundColor:'rgba(193,151,59,0.6)',borderRadius:2,borderSkipped:false}
+    ]},
+    options:{...hBar,plugins:{legend:{display:true,labels:{color:tc,font:{size:10}}}},scales:{x:{stacked:true,grid:{color:gc},ticks:{color:tc,font:{size:10}}},y:{stacked:true,grid:{display:false},ticks:{color:tc,font:{size:10}}}}}});
+}
+
+/* ═══ MATCH TEMPO ═══ */
+let tempoInst=null,cumulInst=null;
+function buildTempoCharts(){
+  const td=DATA.tempo;
+  const common={responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{mode:'index',intersect:false}},
+    scales:{x:{grid:{color:gc},ticks:{color:tc,font:{size:10}}},y:{grid:{color:gc},ticks:{color:tc,font:{size:10}}}}};
+  if(tempoInst)tempoInst.destroy();
+  tempoInst=new Chart(document.getElementById('tempoChart'),{type:'line',data:{labels:td.labels,datasets:[
+    {label:'Morocco',data:td.morocco,borderColor:GREEN,borderWidth:2,fill:true,backgroundColor:'rgba(0,98,51,0.08)',tension:0.35,pointRadius:0},
+    {label:'Portugal',data:td.portugal,borderColor:RED,borderWidth:2,fill:true,backgroundColor:'rgba(198,11,30,0.06)',tension:0.35,pointRadius:0,borderDash:[4,2]}
+  ]},options:common});
+  // cumulative
+  const cumMar=[],cumPor=[];
+  td.morocco.reduce((a,v,i)=>{cumMar.push(a+v);return a+v;},0);
+  let cm=0,cp=0;
+  td.morocco.forEach(v=>{cm+=v;cumMar.push(cm);});
+  td.portugal.forEach(v=>{cp+=v;cumPor.push(cp);});
+  if(cumulInst)cumulInst.destroy();
+  cumulInst=new Chart(document.getElementById('cumulChart'),{type:'line',data:{labels:td.labels,datasets:[
+    {label:'Morocco',data:cumMar,borderColor:GREEN,borderWidth:1.5,fill:false,tension:0.3,pointRadius:0},
+    {label:'Portugal',data:cumPor,borderColor:RED,borderWidth:1.5,fill:false,tension:0.3,pointRadius:0,borderDash:[4,2]}
+  ]},options:common});
+}
+
+/* ═══ GPS ═══ */
+let speedInst=null;
+function buildGPS(){
+  const ps=active().sort((a,b)=>b.pressures+b.carries-(a.pressures+a.carries));
+  const loads=ps.map(p=>Math.min(100,Math.round(((p.pressures*1.2+p.carries*1.0+p.passes*0.4)/60)*100)));
+  const gpsReadings=ps.slice(0,8).map((p,i)=>`<div class="bar-row">
+    <span class="bar-name">#${p.jersey} ${p.short}</span>
+    <div class="bar-track"><div class="bar-fill" style="width:${loads[i]}%;background:${loads[i]>80?RED:loads[i]>60?GOLD:GREEN}"></div></div>
+    <span class="bar-val">${loads[i]}</span>
+  </div>`).join('');
+  document.getElementById('gpsReadingsEl').innerHTML=gpsReadings;
+
+  // Amrabat heatmap
+  const hCanvas=document.getElementById('amrabatHeat');
+  const W=hCanvas.parentElement.clientWidth||400, H=Math.round(W*0.58);
+  hCanvas.width=W*devicePixelRatio; hCanvas.height=H*devicePixelRatio;
+  hCanvas.style.width=W+'px'; hCanvas.style.height=H+'px';
+  const hCtx=hCanvas.getContext('2d'); hCtx.scale(devicePixelRatio,devicePixelRatio);
+  drawPitchBG(hCtx,W,H,true);
+  const blobs=[{cx:0.37,cy:0.50,rx:0.12,ry:0.16,a:0.75},{cx:0.45,cy:0.48,rx:0.09,ry:0.12,a:0.6},{cx:0.30,cy:0.52,rx:0.08,ry:0.10,a:0.5},{cx:0.55,cy:0.45,rx:0.07,ry:0.09,a:0.4},{cx:0.42,cy:0.60,rx:0.06,ry:0.08,a:0.35}];
+  blobs.forEach(b=>{
+    const grd=hCtx.createRadialGradient(b.cx*W,b.cy*H,0,b.cx*W,b.cy*H,Math.max(b.rx*W,b.ry*H));
+    grd.addColorStop(0,`rgba(255,50,50,${b.a})`);grd.addColorStop(1,'rgba(255,50,50,0)');
+    hCtx.fillStyle=grd;hCtx.beginPath();hCtx.ellipse(b.cx*W,b.cy*H,b.rx*W,b.ry*H,0,0,Math.PI*2);hCtx.fill();
+  });
+
+  // speed+HR chart
+  const mins=[],spds=[],hrs=[];
+  for(let m=0;m<=90;m+=2){
+    mins.push(m===45?"HT":m+"'");
+    const ph=m<15?0.55:m<45?1.0:m<47?0.2:m<50?0.65:m<80?0.93:0.7;
+    const ft=1-(m/300);
+    spds.push(Math.round((5+Math.random()*22)*ph*ft*10)/10);
+    hrs.push(Math.round(95+(85*Math.min(ph,0.97)*ft)+(Math.random()*10-5)));
+  }
+  if(speedInst)speedInst.destroy();
+  speedInst=new Chart(document.getElementById('speedProfileChart'),{type:'line',
+    data:{labels:mins,datasets:[
+      {label:'Speed',data:spds,borderColor:GREEN,borderWidth:1.5,pointRadius:0,tension:0.35,yAxisID:'y'},
+      {label:'HR',data:hrs,borderColor:RED,borderWidth:1.5,pointRadius:0,tension:0.35,yAxisID:'y1',borderDash:[4,2]}
+    ]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{mode:'index',intersect:false}},
+      scales:{x:{grid:{color:gc},ticks:{color:tc,font:{size:10},maxTicksLimit:12,autoSkip:true}},
+        y:{position:'left',grid:{color:gc},ticks:{color:GREEN,font:{size:10},callback:v=>v+' km/h'},min:0,max:36},
+        y1:{position:'right',grid:{drawOnChartArea:false},ticks:{color:RED,font:{size:10},callback:v=>v+' bpm'},min:80,max:185}}}
+  });
+}
+
+/* ═══ REPORT ═══ */
+let radarInst=null,loadInst=null;
+function buildRadar(){
+  if(radarInst)radarInst.destroy();
+  radarInst=new Chart(document.getElementById('reportRadar'),{type:'radar',
+    data:{labels:['Pressing','Passing','Defensive','Finishing','Transition','Set pieces'],
+      datasets:[
+        {label:'Morocco WC2022',data:[95,80,92,70,85,88],backgroundColor:'rgba(0,98,51,0.18)',borderColor:GREEN,borderWidth:2,pointBackgroundColor:GREEN,pointRadius:3},
+        {label:'Tournament avg',data:[72,76,74,73,72,70],backgroundColor:'rgba(150,150,150,0.06)',borderColor:'#aaa',borderWidth:1.5,borderDash:[4,3],pointRadius:0}
+      ]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},
+      scales:{r:{min:0,max:100,ticks:{display:false},grid:{color:gc},pointLabels:{font:{size:11},color:tc},angleLines:{color:gc}}}}
+  });
+  if(loadInst)loadInst.destroy();
+}
+function buildLoadChart(){
+  if(loadInst)loadInst.destroy();
+  loadInst=new Chart(document.getElementById('loadChart'),{type:'bar',
+    data:{labels:['Wk1','Wk2','Wk3','Wk4','Wk5','WC camp'],
+      datasets:[
+        {label:'Training',data:[280,340,310,420,250,380],backgroundColor:'rgba(0,98,51,0.75)',borderRadius:3,borderSkipped:false},
+        {label:'Match',data:[140,190,185,210,160,200],backgroundColor:'rgba(198,11,30,0.65)',borderRadius:3,borderSkipped:false}
+      ]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},
+      scales:{x:{stacked:true,grid:{display:false},ticks:{color:tc,font:{size:11}}},
+        y:{stacked:true,grid:{color:gc},ticks:{color:tc,font:{size:11},callback:v=>v+' AU'},max:700}}}
+  });
+}
+
+/* ═══ INJURY RISK ═══ */
+let injRad=null;
+function buildLoadIndex(){
+  const ps=active().sort((a,b)=>b.pressures+b.carries-(a.pressures+a.carries)).slice(0,8);
+  const mx=Math.max(...ps.map(p=>p.pressures+p.carries));
+  document.getElementById('loadIndexEl').innerHTML=ps.map(p=>{
+    const v=Math.min(100,Math.round((p.pressures+p.carries)/mx*95+5));
+    const col=v>80?RED:v>60?GOLD:GREEN;
+    return `<div class="bar-row"><span class="bar-name">#${p.jersey} ${p.short}</span><div class="bar-track"><div class="bar-fill" style="width:${v}%;background:${col}"></div></div><span class="bar-val" style="color:${col}">${v}</span></div>`;
+  }).join('');
+}
+function buildInjuryRadar(){
+  if(injRad)injRad.destroy();
+  injRad=new Chart(document.getElementById('injuryRadar'),{type:'radar',
+    data:{labels:['Speed','Stamina','Agility','Strength','Recovery','Availability'],
+      datasets:[{label:'Amrabat',data:[78,92,80,85,62,88],backgroundColor:'rgba(0,98,51,0.18)',borderColor:GREEN,borderWidth:2,pointBackgroundColor:GREEN,pointRadius:3}]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},
+      scales:{r:{min:0,max:100,ticks:{display:false},grid:{color:gc},pointLabels:{font:{size:10},color:tc},angleLines:{color:gc}}}}
+  });
+}
+
+/* ═══ WEEKLY PLAN CHART ═══ */
+let weeklyInst=null;
+function buildWeeklyLoadChart(){
+  if(weeklyInst)weeklyInst.destroy();
+  weeklyInst=new Chart(document.getElementById('weeklyLoadChart'),{type:'bar',
+    data:{labels:['Day 1','Day 2','Day 3','Day 4','Day 5','Day 6','Match'],
+      datasets:[{label:'Target load (AU)',data:[0,40,180,280,380,120,550],
+        backgroundColor:['#555','rgba(0,98,51,0.3)','rgba(0,98,51,0.45)','rgba(0,98,51,0.6)','rgba(0,98,51,0.75)','rgba(193,151,59,0.6)','rgba(198,11,30,0.7)'],
+        borderRadius:4,borderSkipped:false}]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},
+      scales:{x:{grid:{display:false},ticks:{color:tc,font:{size:10}}},
+        y:{grid:{color:gc},ticks:{color:tc,font:{size:10},callback:v=>v+' AU'},max:600}}}
+  });
+}
+</script>
+</body>
+</html>
